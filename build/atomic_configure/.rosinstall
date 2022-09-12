@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/river/rose_catkin_ws/devel/setup.sh
