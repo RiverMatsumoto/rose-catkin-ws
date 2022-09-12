@@ -24,7 +24,7 @@ def motor_driver():
             spin_motors(0.0, 0.0)
             rospy.signal_shutdown("Shutting Down Motor Controller");
         else:
-            spin_motors(motor_speeds)
+            spin_motors(motor_speeds[0], motor_speeds[1])
     
     rospy.loginfo('Motor driver is exiting')
 
@@ -41,7 +41,7 @@ def motor_input():
         return None
 
     if (all((elements <= 100 and elements >= 0) for elements in user_input)):
-        rospy.loginfo(f'Motor1 Velocity = {user_input[0]}, Motor2 Velocity = {user_input[1]}')
+        return user_input
     else:
         rospy.logwarn('Invalid motor speeds, only give 2 integers from 0-100')
 
