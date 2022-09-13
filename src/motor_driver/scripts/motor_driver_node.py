@@ -7,13 +7,17 @@ from motor_driver.msg import MotorSpeed
 # connect to the roboclaw using gpio pins
 address = 0x80
 baudrate = 38400
-roboclaw = Roboclaw('/dev/ttyTHS1', rate=baudrate)
+port = '/dev/ttyTHS1'
+roboclaw = Roboclaw(port, rate=baudrate)
 roboclaw.Open()
 
 def motor_driver():
     rospy.init_node('motor_driver')
+    rospy.loginfo("Setting up motor driver")
     motor_vel_sub = rospy.Subscriber("/motor/vel", MotorSpeed, callback=spin_motors)
-    rospy.loginfo('Motor Driver Started')
+    rospy.loginfo("Connected to port: %s", port)
+    rospy.loginfo("Baudrate: %d", baudrate)
+    rospy.loginfo('Motor driver started')
     rospy.spin()
     rospy.loginfo('Motor driver is exiting')
 
