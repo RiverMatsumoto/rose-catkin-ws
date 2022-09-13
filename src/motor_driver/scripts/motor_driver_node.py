@@ -21,8 +21,11 @@ def motor_driver():
 # Motor speed: 0-64 = backwards, 64 = stop, 64-127 = forwards
 def spin_motors(msg: MotorSpeed):
     rospy.loginfo(f'Got the motor speed. M1={msg.motor1}, M2={msg.motor2}')
-    roboclaw.ForwardBackwardM1(address, int(msg.motor1))
-    roboclaw.ForwardBackwardM2(address, int(msg.motor2))
+    try:
+        roboclaw.ForwardBackwardM1(address, int(msg.motor1))
+        roboclaw.ForwardBackwardM2(address, int(msg.motor2))
+    except Exception as e:
+        rospy.loginfo(e)
 
 # temporary logging
 def print_motor_data():
